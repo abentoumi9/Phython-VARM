@@ -1,4 +1,14 @@
 
+#simpel: wat willen we bereiken hier?
+
+doel = input('Wat wilt u doen?')
+#keuzelijst: kopen/mijn portfolio performance bekijken
+if doel = kopen:
+    #gebeurt keuzelijst wat je wil kopen (dictionary van 10 items)
+else:
+    #zoekt naar portfolios users
+    #vraag om input: welke wil je bekijken?
+    #print(keuze portfolio)
 
 #API connection
 
@@ -12,4 +22,7 @@ data = r.json()
 print(data)
 
 data.keys()
+
+
+
 
