@@ -1,3 +1,5 @@
+#LOGIN USERNAME
+
 # login = input('Enter username')
 # store_user = ["ron", "piemel"]
 # if login not in store_user:
@@ -8,7 +10,8 @@
 # else :
 #     user = login
 #     print('Welcome,', user, 'What do you want to do?')
-#
+
+#DEFINE BUYSTOCK
 
 import requests
 import pandas as pd
@@ -25,6 +28,9 @@ def BuyStock():
     return(data)
 
 print(BuyStock())
+
+#DEFINE SEE PERFORMANCE PORTFOLIO
+def ViewPortfolio())
 
 # def getStocksData(ticker):
 #
