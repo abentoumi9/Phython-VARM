@@ -1,23 +1,83 @@
-login = input('Enter username')
-store_user = ["ron", "piemel"]
-if login not in store_user:
-    print('That user does not exist')
-    user = input('Create username')
-    store_user.append(user)
-    print('Welcome,', user, 'What do you want to do?')
-else :
-    user = login
-    print('Welcome,', user, 'What do you want to do?')
+# login = input('Enter username')
+# store_user = ["ron", "piemel"]
+# if login not in store_user:
+#     print('That user does not exist')
+#     user = input('Create username')
+#     store_user.append(user)
+#     print('Welcome,', user, 'What do you want to do?')
+# else :
+#     user = login
+#     print('Welcome,', user, 'What do you want to do?')
+#
 
-action = input ('Would you like to buy/watch?')
-if action == 'buy':
-    print('The following stocks are available: ASML, TESLA and SHELL')
+import requests
+import pandas as pd
 
-    print('Which stock would you like to buy?')
+stock = ["ASML", "RDSA", "AAPL"]
 
-else:
-    print('Check these amazing stocks out!')
-    print('ASML, TESLA and SHELL')
+def BuyStock():
+    print("The following stocks are available: ", stock)
+    select = int(input("Which stock would like to buy? (0, 1, 2):"))
+    stock_select = stock[select]
+    url = f'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={stock_select}&outputsize=full&apikey=73R6EIWTFXMUJFO0'
+    r = requests.get(url)
+    data = r.json()
+    return(data)
+
+print(BuyStock())
+
+# def getStocksData(ticker):
+#
+#     url = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={ + ticker + '&outputsize=full&apikey=73R6EIWTFXMUJFO0'
+#
+#     r = requests.get(url)
+#
+#     if r.status_code != 200:
+#
+#         raise ValueError("Could not retrieve data, code:", r.status_code)
+#
+#
+
+
+
+    # def getstockcode():
+    #     query = input("What would you like: ") IBM
+    #
+    #     url = (f'https://www.alphavantage.co/(IBM)?function=SYMBOL_SEARCH&keywords={query}&apikey=73R6EIWTFXMUJFO0')
+    #     r = requests.get(url)
+    #     data = r.json()
+
+
+
+
+    # cars = ["Opel Astra", "BMW Z4", "Peugeot 207"]
+#
+# def selecteer_auto():
+#     print("We hebben de volgende auto's: ", cars)
+#
+#     selectie = int(input("Welke auto wilt u huren (0..2)?"))
+#     return cars[selectie]
+#
+#     def vraag_hoeveel_dagen():
+#         pass
+#
+#     while True: print("Wat wilt u doen?")
+#     print("h voor huren, s voor stop")
+#     selectie = input()
+#     if selectie == "h": car = selecteer_auto()
+#     print("U heeft geseleteerd:", car) elif selectie == 's':
+#     break
+
+
+# action = input ('Would you like to buy/watch?')
+# if action == 'buy':
+#     print('The following stocks are available: ASML, TESLA and SHELL')
+#
+#     print('Which stock would you like to buy?')
+#
+# else:
+#     print('Check these amazing stocks out!')
+#     print('ASML, TESLA and SHELL')
 
 
 
