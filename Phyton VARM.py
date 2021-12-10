@@ -1,21 +1,40 @@
+login = input('Enter username')
+store_user = ["ron", "piemel"]
+if login not in store_user:
+    print('That user does not exist')
+    user = input('Create username')
+    store_user.append(user)
+    print('Welcome,', user, 'What do you want to do?')
+else :
+    user = login
+    print('Welcome,', user, 'What do you want to do?')
+
+action = input ('Would you like to buy/watch?')
+if action == 'buy':
+    print('Which stock would you like to buy?')
+else:
+    print('Check these stocks out!')
+
+
 
 #simpel: wat willen we bereiken hier?
-user = input('Create Username: ')
-store_user=["ron","piemel"]
-
-if user in store_user:
-    print("That user already exists")
-    user = input('Create username: ')
-    store_user.append(user)
-else:
-    store_user.append(user)
-
-login = input('Enter your username to login. ')
-if login in store_user:
-    print('Welcome,', user, 'What do you want to do?')
-else:
-    print('Your username is not known. Please try again or create an account. ')
-    login= input('Enter your username to log in. ')
+# action = input('Do you already have an account? (y/n)')
+# store_user = ["ron", "piemel"]
+# if action == 'n':
+#     user = input('Create Username: ')
+#     if user in store_user:
+#         print("That user already exists")
+#     else user = input('Create username: ')
+# elif action == 'y':
+#     login = input('Enter your username to login. ')
+#     if login in store_user:
+#         print('Welcome,', user, 'What do you want to do?')
+# else:
+#     store_user.append(user)
+#
+# else:
+#     print('Your username is not known. Please try again or create an account. ')
+#     login= input('Enter your username to log in. ')
 
 #
 # person = input('Do you have a username? (y/n) ')
