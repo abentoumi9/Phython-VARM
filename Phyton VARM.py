@@ -11,11 +11,13 @@ else :
 
 action = input ('Would you like to buy/watch?')
 if action == 'buy':
-    print('The following stocks are available: ASLM, TESLA and SHELL')
+    print('The following stocks are available: ASML, TESLA and SHELL')
+
     print('Which stock would you like to buy?')
 
 else:
-    print('Check these stocks out!')
+    print('Check these amazing stocks out!')
+    print('ASLM, TESLA and SHELL')
 
 
 
