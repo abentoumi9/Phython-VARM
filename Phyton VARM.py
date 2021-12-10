@@ -17,7 +17,7 @@ if action == 'buy':
 
 else:
     print('Check these amazing stocks out!')
-    print('ASLM, TESLA and SHELL')
+    print('ASML, TESLA and SHELL')
 
 
 
