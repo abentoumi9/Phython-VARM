@@ -17,6 +17,7 @@ import requests
 import pandas as pd
 
 stock = ["ASML", "RDSA", "AAPL"]
+individual_portfolio = []             #lijst maken waar stocks append kunnen worden, PER USER
 
 def BuyStock():
     print("The following stocks are available: ")
@@ -30,23 +31,28 @@ def BuyStock():
     r = requests.get(url)
     if r.status_code != 200:
         raise ValueError("Could not retrieve data, code:", r.status_code)
-
-    # loop maken dat iemand dus definitief kan kopen (en dan append aan portfoliolijst) OF dat iemand dus iets anders kan kiezen
-
     raw_data = r.json()
     data = raw_data['Time Series (5min)']
     df = pd.DataFrame(data).T.apply(pd.to_numeric)
     df.head()
-    df = df.iloc[0]['4. close']
-    return df
+    prijs = df.iloc[0]['4. close']
+    print('Your stock of choice has a price of', prijs, 'USD. ')
+    questionbuy = input('Would you like to buy this stock (yes/no)?')
+    if questionbuy == 'yes':
+        individual_portfolio.append(stock_select)
+        print('Your stock has been added to your Portfolio.')
+        print('You now have', ",".join(individual_portfolio), 'in your portfolio. ')
+    else:
+        return 'You will be redirected to the main menu. '
 
-
+BuyStock()
 
 #DEFINE SEE PERFORMANCE PORTFOLIO
 
 def ViewPortfolio():
 
 #MAIN LOOP
+
 while True:
     print("What would you like to do?")
     print("Type b to buy stock, type v to view your portfolio")
