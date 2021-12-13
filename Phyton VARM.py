@@ -7,7 +7,8 @@ f.close()
 
 user= input('What is your username? ').lower()
 pers_stocks = usersandport[user]
-print('Welcome', user, ". Nice to have you back at the Pythonic Lava Investment Game! ")
+print("""
+Welcome""", user, """. Nice to have you back at the Pythonic Lava Investment Game! """)
 
 #loginusername
 # login = input('Enter username')
@@ -24,6 +25,7 @@ print('Welcome', user, ". Nice to have you back at the Pythonic Lava Investment 
 #IMPORTS
 import requests
 import pandas as pd
+import matplotlib.pyplot
 
 # #loginusername
 # name = input('Enter username')
@@ -55,7 +57,7 @@ def BuyStock():
     df.head()
     prijs = df.iloc[0]['4. close']
     print('Your stock of choice has a price of', prijs, 'USD. ')
-    questionbuy = input('Would you like to buy this stock (yes/no)?')
+    questionbuy = input('Would you like to buy this stock (Yes/No)? ').lower()
     if questionbuy == 'yes':
         pers_stocks.append(stock_select)
         f = open('myusersandport.txt', 'w')
@@ -67,11 +69,32 @@ def BuyStock():
     else:
         return 'You will be redirected to the main menu. '
 
+def SellStock():
+    print("You can sell the following stocks. ")
+    teller = 0
+    for s in pers_stocks:
+        print(teller, ":", s)
+        teller += 1
+    sellstock = int(input("Which stock would like to sell (0, 1, or 2)?: "))
+    try:
+        stocktosell = pers_stocks[sellstock]
+        print('You are about to sell', pers_stocks[sellstock], 'from your portfolio. ')
+        answer = input('Do you wish to continue (Yes/No)? ').lower()
+        if answer == "yes":
+            pers_stocks.remove(stocktosell)
+            print('You have sold', stocktosell, '. Congrats! ')
+            f = open('myusersandport.txt', 'w')
+            json.dump(usersandport, f)
+        else:
+            return 'You will now be redirected to the main menu. '
+    except IndexError:
+        print('That value does not exist. You will be redirected to the main menu. ')
+
 # DEFINE SEE PERFORMANCE PORTFOLIO
 
 def ViewPortfolio():
-    print("What do you want to do?")
-    view_actions = ["View stocks", "View balance"]
+    print("What do you want to do? ")
+    view_actions = ["View Stocks", "View Balance"]
     teller = 0
     SumPortfolio = 0
     for s in view_actions:
@@ -89,29 +112,31 @@ def ViewPortfolio():
                 raise ValueError("Could not retrieve data, code:", r.status_code)
             raw_data = r.json()
             data = raw_data['Time Series (5min)']
+
             df = pd.DataFrame(data).T.apply(pd.to_numeric)
             df.head()
             prijs = df.iloc[0]['4. close']
             SumPortfolio += prijs
-        print(SumPortfolio)
+        print('The monetary value of your Portfolio is: ', SumPortfolio, 'USD. ')
     else:
-        print("That is not possible")
+        print("That is unfortunately not possible. ")
     return 'You will be redirected to the main menu. '
 
 # #MAIN LOOP
 
 while True:
-    print("What would you like to do?")
-    actions = ["Buy stock", "View portfolio"]
+    print("What would you like to do? ")
+    actions = ["Buy stock", "Sell Stock", "View portfolio"]
     teller = 0
     for s in actions:
         print(teller, ":", s)
         teller += 1
-    keuze = int(input("Make your choice (0/1): "))
+    keuze = int(input("Make your choice (0/1/2): "))
     if keuze == 0:
         BuyStock() #Add option to return to main menu
     elif keuze == 1:
+        SellStock()
+    elif keuze == 2:
         ViewPortfolio()
     else:
         break
-
