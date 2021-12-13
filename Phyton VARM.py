@@ -1,5 +1,15 @@
 #LOGIN USERNAME
+import json
 
+f = open("myusersandport.txt")
+usersandport = json.load(f)
+f.close()
+
+user= input('What is your username? ').lower()
+pers_stocks = usersandport[user]
+print('Welcome', user, ". Nice to have you back at the Pythonic Lava Investment Game! ")
+
+#loginusername
 # login = input('Enter username')
 # store_user = ["ron", "piemel"]
 # if login not in store_user:
@@ -9,15 +19,23 @@
 #     print('Welcome,', user, 'What do you want to do?')
 # else :
 #     user = login
-#     print('Welcome,', user, 'What do you want to do?')
+#     print('Welcome,', user, 'What do you want to do?')ino': []
 
-#DEFINE BUYSTOCK
-
+#IMPORTS
 import requests
 import pandas as pd
 
+# #loginusername
+# name = input('Enter username')
+# usersandport = {
+#     'vera':['ASML'],
+#     'ron': ['MSFT', 'ASML', 'AAPL'],
+#     'Martino': []
+# }
+
+#DEFINE BUYSTOCK
 stock = ["ASML", "MSFT", "AAPL"]
-individual_portfolio = []             #lijst maken waar stocks append kunnen worden, PER USER
+individual_portfolio = []
 
 def BuyStock():
     print("The following stocks are available: ")
@@ -39,16 +57,17 @@ def BuyStock():
     print('Your stock of choice has a price of', prijs, 'USD. ')
     questionbuy = input('Would you like to buy this stock (yes/no)?')
     if questionbuy == 'yes':
-        individual_portfolio.append(stock_select)
+        pers_stocks.append(stock_select)
+        f = open('myusersandport.txt', 'w')
+        json.dump(usersandport, f)
+        #usersandport[name]=stock_select
+        # individual_portfolio.append(stock_select)
         print('Your stock has been added to your Portfolio.')
-        print('You now have', ",".join(individual_portfolio), 'in your portfolio. ')
+        print('You now have', ",".join(pers_stocks), 'in your portfolio. ')
     else:
         return 'You will be redirected to the main menu. '
 
-
-
 # DEFINE SEE PERFORMANCE PORTFOLIO
-
 
 def ViewPortfolio():
     print("What do you want to do?")
@@ -60,10 +79,10 @@ def ViewPortfolio():
         teller += 1
     keuze = int(input("Make your choice (0/1): "))
     if keuze == 0:
-        StockAmount = len(individual_portfolio)
-        print("You have", StockAmount, "stock in your portfolio, which are:", ",".join(individual_portfolio))
+        StockAmount = len(pers_stocks)
+        print("You have", StockAmount, "stock in your portfolio, which are:", ",".join(pers_stocks))
     elif keuze == 1:
-        for i in individual_portfolio:
+        for i in pers_stocks:
             url = f'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={i}&interval=5min&outputsize=full&apikey=73R6EIWTFXMUJFO0'
             r = requests.get(url)
             if r.status_code != 200:
@@ -79,13 +98,7 @@ def ViewPortfolio():
         print("That is not possible")
     return 'You will be redirected to the main menu. '
 
-
-
-
-
-
-
-#MAIN LOOP
+# #MAIN LOOP
 
 while True:
     print("What would you like to do?")
@@ -102,4 +115,3 @@ while True:
     else:
         break
 
-#succes!
